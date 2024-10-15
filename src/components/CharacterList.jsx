@@ -1,9 +1,9 @@
 import { EyeIcon } from "@heroicons/react/16/solid";
 
-function CharacterList({ allCharacters }) {
+function CharacterList({ characters }) {
   return (
     <div className="charecters-list">
-      {allCharacters.map((item) => (
+      {characters.map((item) => (
         <Character item={item} key={item.id} />
       ))}
     </div>
