@@ -4,6 +4,7 @@ import CharecterDetail from "./components/CharecterDetail";
 import Navbar, { SearchResult } from "./components/Navbar";
 import { allCharacters } from "../data/data";
 import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   // we need to put charecters state into App compo because we need it for navbar as well.
@@ -29,20 +30,29 @@ function App() {
   // first declare function fetchData
   useEffect(() => {
     async function fetchData() {
-      setIsLoading(true)
-      const res = await fetch("https://rickandmortyapi.com/api/character");
-      const data = await res.json();
-      setCharacters(data.results);
-      setIsLoading(false)
+      try {
+        setIsLoading(true)
+        const res = await fetch("https://rickandmortyapi.com/api/characters");
+        if (!res.ok) throw new Error("Error")
+        const data = await res.json();
+        setCharacters(data.results);
+        // setIsLoading(false)
+      } catch (error) {
+        // setIsLoading(false)
+        console.log(error.message)
+      } finally{
+        setIsLoading(false)
+      }
     }
     // then call that function
     fetchData();
   }, []);
 
-  
+
   const numOfResult = characters.length;
   return (
     <div className="app">
+      <Toaster />
       {/* use component composition for navbar and use num of result as a child to prevent props drilling */}
       <Navbar>
         <SearchResult numOfResult={numOfResult} />
