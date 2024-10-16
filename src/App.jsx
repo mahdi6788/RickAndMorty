@@ -10,11 +10,11 @@ function App() {
   const [characters, setCharacters] = useState([]);
   // depending on the condition we decide to use useEffect or event handler function
   // 1st approach: useEffect to fetch data
-  useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character")
-      .then((res) => res.json())
-      .then((data) => setCharacters(data.results));
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://rickandmortyapi.com/api/character")
+  //     .then((res) => res.json())
+  //     .then((data) => setCharacters(data.results));
+  // }, []);
 
   // // 2nd approach: event handler function (button) to fetch data
   // function fetchCharacter() {
@@ -23,13 +23,24 @@ function App() {
   //     .then((data) => setCharacters(data.results));
   // }
 
+  // use async await instead of then catch: 
+  // first declare function fetchData
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("https://rickandmortyapi.com/api/character");
+      const data = await res.json();
+      setCharacters(data.results);
+    }
+    // then call that function
+    fetchData();
+  }, []);
 
   const numOfResult = characters.length;
   return (
     <div className="app">
       {/* use component composition for navbar and use num of result as a child to prevent props drilling */}
       <Navbar>
-        <SearchResult numOfResult={numOfResult} /> 
+        <SearchResult numOfResult={numOfResult} />
       </Navbar>
       {/* <button style={{ color: "red" }} onClick={fetchCharacter}>
         Load Charecters
