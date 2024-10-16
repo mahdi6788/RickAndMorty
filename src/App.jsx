@@ -23,13 +23,17 @@ function App() {
   //     .then((data) => setCharacters(data.results));
   // }
 
+  // isLoading state and Loading component for showing message when user is waiting to fetch data from API
+  const [isLoading, setIsLoading] = useState(false)
   // use async await instead of then catch: 
   // first declare function fetchData
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true)
       const res = await fetch("https://rickandmortyapi.com/api/character");
       const data = await res.json();
       setCharacters(data.results);
+      setIsLoading(false)
     }
     // then call that function
     fetchData();
@@ -46,7 +50,7 @@ function App() {
         Load Charecters
       </button> */}
       <div className="main">
-        <CharacterList characters={characters} />
+        <CharacterList characters={characters} isLoading={isLoading}/>
         <CharecterDetail />
       </div>
     </div>
