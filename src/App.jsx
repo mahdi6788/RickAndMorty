@@ -39,6 +39,7 @@ function App() {
     fetchData();
   }, []);
 
+  
   const numOfResult = characters.length;
   return (
     <div className="app">
