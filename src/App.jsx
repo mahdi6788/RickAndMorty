@@ -1,13 +1,15 @@
 import "./App.css";
 import CharacterList from "./components/CharacterList";
 import CharecterDetail from "./components/CharecterDetail";
-import Navbar, { SearchResult } from "./components/Navbar";
+import Navbar, { Search, SearchResult } from "./components/Navbar";
 import { allCharacters } from "../data/data";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 function App() {
+  const [query, setQuery] = useState(""); /// put this useState here in parant compo because we need the query here after setting in search component by setQuery.
+
   /// we need to put charecters state into App compo because we need it for navbar as well.
   const [characters, setCharacters] = useState([]);
   /// depending on the condition we decide to use useEffect or event handler function
@@ -26,8 +28,8 @@ function App() {
   // }
 
   // isLoading state and Loading component for showing message when user is waiting to fetch data from API
-  const [isLoading, setIsLoading] = useState(false)
-  /// use async await instead of then catch: 
+  const [isLoading, setIsLoading] = useState(false);
+  /// use async await instead of then catch:
   /// first declare function fetchData
   // useEffect(() => {
   //   async function fetchData() {
@@ -54,38 +56,42 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
+      /// not to show result if the input is less than 3 characters.
+      if (query.length < 3) return setCharacters([]); 
+
       try {
-        setIsLoading(true)
-        const res = await axios.get("https://rickandmortyapi.com/api/character");
-        // console.log(res.data.results)
+        setIsLoading(true);
+        const res = await axios.get(
+          `https://rickandmortyapi.com/api/character/?name=${query}`
+        );
         setCharacters(res.data.results);
       } catch (error) {
-        // console.log(error.response.data.error)
-        toast.error(error.response.data.error)   /// display error as a toast
-      } finally{
-        setIsLoading(false)
+        /// show empty if search does not have proper result
+        setCharacters([]);
+        toast.error(error.response.data.error); /// display error as a toast
+      } finally {
+        setIsLoading(false);
       }
     }
     // then call that function
     fetchData();
-  }, []);
-
-
-
+  }, [query]); /// we should put the state into [] to run effect function after changing this state
 
   const numOfResult = characters.length;
+
   return (
     <div className="app">
       <Toaster />
-      {/* use component composition for navbar and use num of result as a child to prevent props drilling */}
+      {/* use component composition for navbar and use searchResult and Search as the children to prevent props drilling. */}
       <Navbar>
+        <Search query={query} setQuery={setQuery} />
         <SearchResult numOfResult={numOfResult} />
       </Navbar>
       {/* <button style={{ color: "red" }} onClick={fetchCharacter}>
         Load Charecters
       </button> */}
       <div className="main">
-        <CharacterList characters={characters} isLoading={isLoading}/>
+        <CharacterList characters={characters} isLoading={isLoading} />
         <CharecterDetail />
       </div>
     </div>
