@@ -11,10 +11,24 @@ function App() {
   const [query, setQuery] = useState(""); /// put this useState here in parant compo because we need the query here after setting in search component by setQuery.
 
   /// to determine which cahracter is selected, via Id
+  const [character, setCharacter] = useState(null)
   const [selectedId, setSelectedId] = useState(null)
-  function handlerCharacter(id){
-    setSelectedId(id)
-    
+  async function handlerCharacter(id){
+    try {
+      setSelectedId(id)
+
+      if (character!== null && character.id === id){
+        return(
+          setCharacter(null),
+          setSelectedId(null)
+        )
+      }  
+
+      const selectedCharacter = await axios.get(`https://rickandmortyapi.com/api/character/${id}`)
+      setCharacter(selectedCharacter.data)
+    } catch (error) {
+      toast(error.message)
+    }
   }
 
 
@@ -99,8 +113,8 @@ function App() {
         Load Charecters
       </button> */}
       <div className="main">
-        <CharacterList characters={characters} isLoading={isLoading} handlerCharacter={handlerCharacter} />
-        <CharecterDetail />
+        <CharacterList characters={characters} isLoading={isLoading} handlerCharacter={handlerCharacter} selectedId={selectedId} />
+        <CharecterDetail character={character} />
       </div>
     </div>
   );

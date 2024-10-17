@@ -1,7 +1,14 @@
 import { ArrowUpCircleIcon } from "@heroicons/react/16/solid";
-import { character, episodes } from "../../data/data";
+import {  episodes } from "../../data/data";
 
-function CharecterDetail() {
+function CharecterDetail({character}) {
+  if (character === null) {
+    return (
+      <div style={{ flex: 1, color:"white"}}>
+        There is nothing to show
+      </div>
+    )
+  }
   return (
     <div style={{ flex: 1 }}>
       <div className="character-detail">
