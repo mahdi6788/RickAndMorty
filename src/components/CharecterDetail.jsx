@@ -1,7 +1,7 @@
 import { ArrowUpCircleIcon } from "@heroicons/react/16/solid";
-import {  episodes } from "../../data/data";
+// import {  episodes } from "../../data/data";
 
-function CharecterDetail({character}) {
+function CharecterDetail({character, episodes}) {
   if (character === null) {
     return (
       <div style={{ flex: 1, color:"white"}}>
@@ -46,7 +46,8 @@ function CharecterDetail({character}) {
           </button>
         </div>
         <ul>
-          {episodes.map((item, index) => (
+          {episodes === null ? <p>Select a charecter first</p> :
+          episodes.map((item, index) => (
             <li key={item.id}>
               <div>
                 {String(index + 1).padStart(2, "0")} {item.episode} :

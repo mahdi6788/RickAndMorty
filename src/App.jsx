@@ -13,6 +13,7 @@ function App() {
   /// to determine which cahracter is selected, via Id
   const [character, setCharacter] = useState(null)
   const [selectedId, setSelectedId] = useState(null)
+  const [episodes, setEpisodes] = useState([])
   async function handlerCharacter(id){
     try {
       setSelectedId(id)
@@ -23,9 +24,15 @@ function App() {
           setSelectedId(null)
         )
       }  
-
+      
       const selectedCharacter = await axios.get(`https://rickandmortyapi.com/api/character/${id}`)
       setCharacter(selectedCharacter.data)
+
+      const episodeIds =  selectedCharacter.data.episode.map(item => item.split("/").at(-1))
+      const episodesInfo = await axios.get(`https://rickandmortyapi.com/api/episode/${episodeIds}`)
+      // console.log(episodesInfo.data)
+      setEpisodes([episodesInfo.data].flat()) /// remove brakets of object
+      
     } catch (error) {
       toast(error.message)
     }
@@ -114,7 +121,7 @@ function App() {
       </button> */}
       <div className="main">
         <CharacterList characters={characters} isLoading={isLoading} handlerCharacter={handlerCharacter} selectedId={selectedId} />
-        <CharecterDetail character={character} />
+        <CharecterDetail character={character} episodes={episodes}/>
       </div>
     </div>
   );
