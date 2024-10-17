@@ -10,6 +10,14 @@ import axios from "axios";
 function App() {
   const [query, setQuery] = useState(""); /// put this useState here in parant compo because we need the query here after setting in search component by setQuery.
 
+  /// to determine which cahracter is selected, via Id
+  const [selectedId, setSelectedId] = useState(null)
+  function handlerCharacter(id){
+    setSelectedId(id)
+    
+  }
+
+
   /// we need to put charecters state into App compo because we need it for navbar as well.
   const [characters, setCharacters] = useState([]);
   /// depending on the condition we decide to use useEffect or event handler function
@@ -91,7 +99,7 @@ function App() {
         Load Charecters
       </button> */}
       <div className="main">
-        <CharacterList characters={characters} isLoading={isLoading} />
+        <CharacterList characters={characters} isLoading={isLoading} handlerCharacter={handlerCharacter} />
         <CharecterDetail />
       </div>
     </div>

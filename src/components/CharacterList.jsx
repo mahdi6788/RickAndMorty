@@ -1,7 +1,7 @@
 import { EyeIcon } from "@heroicons/react/16/solid";
 import Loading from "./Loading"
 
-function CharacterList({ characters, isLoading }) {
+function CharacterList({ characters, isLoading, handlerCharacter }) {
   if (isLoading){
     return (
       <div className="characters-list">
@@ -21,13 +21,14 @@ function CharacterList({ characters, isLoading }) {
 
 export default CharacterList;
 
-function Character({ item }) {
+function Character({ item, handlerCharacter }) {
   return (
     <div className="list__item">
       <img src={item.image} alt={item.name} />
       <CharacterName item={item} />
       <CharacterInfo item={item} />
-      <button className="icon red">
+      <button className="icon red"
+      onClick={() => handlerCharacter(item.id)}>
         <EyeIcon />
       </button>
     </div>
