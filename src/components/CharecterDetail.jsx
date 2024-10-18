@@ -1,7 +1,7 @@
 import { ArrowUpCircleIcon } from "@heroicons/react/16/solid";
 // import {  episodes } from "../../data/data";
 
-function CharecterDetail({character, episodes}) {
+function CharecterDetail({character, episodes, addToFav}) {
   if (character === null) {
     return (
       <div style={{ flex: 1, color:"white"}}>
@@ -34,7 +34,7 @@ function CharecterDetail({character, episodes}) {
             <p>{character.location.name}</p>
           </div>
           <div className="actions">
-            <button className="btn btn--primary">Add to Favourit</button>
+            <button className="btn btn--primary" onClick={() => addToFav(character.id)}>Add to Favourit</button>
           </div>
         </div>
       </div>

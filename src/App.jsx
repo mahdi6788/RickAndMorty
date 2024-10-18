@@ -1,7 +1,7 @@
 import "./App.css";
 import CharacterList from "./components/CharacterList";
 import CharecterDetail from "./components/CharecterDetail";
-import Navbar, { Search, SearchResult } from "./components/Navbar";
+import Navbar, { Favourites, Search, SearchResult } from "./components/Navbar";
 import { allCharacters } from "../data/data";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -108,6 +108,13 @@ function App() {
 
   const numOfResult = characters.length;
 
+  /// add to Favourites
+  const [fav, setFav] = useState([])
+  const numOfFav = fav.length
+  function addToFav(id){
+    if (!fav.includes(id)) return setFav([...fav,id])
+  }
+
   return (
     <div className="app">
       <Toaster />
@@ -115,13 +122,14 @@ function App() {
       <Navbar>
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfResult={numOfResult} />
+        <Favourites numOfFav={numOfFav} />
       </Navbar>
       {/* <button style={{ color: "red" }} onClick={fetchCharacter}>
         Load Charecters
       </button> */}
       <div className="main">
         <CharacterList characters={characters} isLoading={isLoading} handlerCharacter={handlerCharacter} selectedId={selectedId} />
-        <CharecterDetail character={character} episodes={episodes}/>
+        <CharecterDetail character={character} episodes={episodes} addToFav={addToFav}/>
       </div>
     </div>
   );

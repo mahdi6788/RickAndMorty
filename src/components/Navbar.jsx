@@ -5,7 +5,6 @@ function Navbar({ children }) {
     <nav className="navbar">
       <Nav />
       {children}
-      <Favourites />
     </nav>
   );
 }
@@ -33,11 +32,11 @@ export function SearchResult({ numOfResult }) {
   return <div className="navbar__result">found {numOfResult} results</div>;
 }
 
-function Favourites() {
+export function Favourites({numOfFav}) {
   return (
     <button className="heart">
       <HeartIcon className="icon" />
-      <span className="badge">4</span>
+      <span className="badge" style={{color: "white"}}>{numOfFav}</span>
     </button>
   );
 }
