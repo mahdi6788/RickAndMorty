@@ -225,3 +225,19 @@
     flex-direction: row;
   }
 }
+
+.topBar {
+  width: 50%;
+  height: 700px;
+  background-color: #333;
+  position: fixed;
+  top: -700px;
+  left: 25%;
+  padding: 20px;
+  color: #fff;
+  transition: top 0.3s ease;
+}
+
+.topBar.active{
+  top: 0;
+}

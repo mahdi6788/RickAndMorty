@@ -6,6 +6,7 @@ import { allCharacters } from "../data/data";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import FavBar from "./components/FavBar";
 
 function App() {
   const [query, setQuery] = useState(""); /// put this useState here in parant compo because we need the query here after setting in search component by setQuery.
@@ -115,6 +116,12 @@ function App() {
     if (!fav.includes(id)) return setFav([...fav,id])
   }
 
+  const[favBar,setFavBar] = useState(false)
+  function onFavBar (){
+    setFavBar(!favBar)
+  }
+
+
   return (
     <div className="app">
       <Toaster />
@@ -122,8 +129,9 @@ function App() {
       <Navbar>
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfResult={numOfResult} />
-        <Favourites numOfFav={numOfFav} />
+        <Favourites numOfFav={numOfFav} onFavBar={onFavBar}  />
       </Navbar>
+      <FavBar characters={characters} favsId={fav} favBar={favBar} />
       {/* <button style={{ color: "red" }} onClick={fetchCharacter}>
         Load Charecters
       </button> */}
