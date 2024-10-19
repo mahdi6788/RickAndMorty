@@ -1,14 +1,32 @@
-import { ArrowUpCircleIcon } from "@heroicons/react/16/solid";
+import {
+  ArrowDownCircleIcon,
+  ArrowUpCircleIcon,
+} from "@heroicons/react/16/solid";
+import { useState } from "react";
 // import {  episodes } from "../../data/data";
 
-function CharecterDetail({character, episodes, addToFav}) {
+function CharecterDetail({ character, episodes, addToFav }) {
   if (character === null) {
     return (
-      <div style={{ flex: 1, color:"white"}}>
-        There is nothing to show
-      </div>
-    )
+      <div style={{ flex: 1, color: "white" }}>There is nothing to show</div>
+    );
   }
+
+  /// Sort
+  const [sortBy, setSortBy] = useState(true);
+
+  /// use sortedEpisodes instead of episodes. because we cannot mutate it directly unless by setState
+  let sortedEpisodes;
+  if (sortBy) {
+    sortedEpisodes = [...episodes].sort(
+      (a, b) => new Date(a.created) - new Date(b.created)
+    );
+  } else {
+    sortedEpisodes = [...episodes].sort(
+      (a, b) => new Date(b.created) - new Date(a.created)
+    );
+  }
+
   return (
     <div style={{ flex: 1 }}>
       <div className="character-detail">
@@ -34,28 +52,40 @@ function CharecterDetail({character, episodes, addToFav}) {
             <p>{character.location.name}</p>
           </div>
           <div className="actions">
-            <button className="btn btn--primary" onClick={() => addToFav(character.id)}>Add to Favourit</button>
+            <button
+              className="btn btn--primary"
+              onClick={() => addToFav(character.id)}
+            >
+              Add to Favourit
+            </button>
           </div>
         </div>
       </div>
       <div className="character-episodes">
         <div className="title">
           <h2>List of Episodes</h2>
-          <button>
-            <ArrowUpCircleIcon className="icon" />
+          <button onClick={() => setSortBy(!sortBy)}>
+            {sortBy ? (
+              <ArrowDownCircleIcon className="icon" />
+            ) : (
+              <ArrowUpCircleIcon className="icon" />
+            )}
           </button>
         </div>
         <ul>
-          {episodes === null ? <p>Select a charecter first</p> :
-          episodes.map((item, index) => (
-            <li key={item.id}>
-              <div>
-                {String(index + 1).padStart(2, "0")} {item.episode} :
-                <strong>{item.name}</strong>
-              </div>
-              <div className="badge badge--secondary">{item.air_date}</div>
-            </li>
-          ))}
+          {sortedEpisodes === null ? (
+            <p>Select a charecter first</p>
+          ) : (
+            sortedEpisodes.map((item, index) => (
+              <li key={item.id}>
+                <div>
+                  {String(index + 1).padStart(2, "0")} {item.episode} :
+                  <strong>{item.name}</strong>
+                </div>
+                <div className="badge badge--secondary">{item.air_date}</div>
+              </li>
+            ))
+          )}
         </ul>
       </div>
     </div>
