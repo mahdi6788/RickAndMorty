@@ -3,7 +3,6 @@ import {
   ArrowUpCircleIcon,
 } from "@heroicons/react/16/solid";
 import { useState } from "react";
-// import {  episodes } from "../../data/data";
 
 function CharecterDetail({ character, episodes, addToFav }) {
   if (character === null) {
@@ -29,67 +28,84 @@ function CharecterDetail({ character, episodes, addToFav }) {
 
   return (
     <div style={{ flex: 1 }}>
-      <div className="character-detail">
-        <img
-          src={character.image}
-          alt={character.name}
-          className="character-detail__img"
-        />
-        <div className="character-detail__info">
-          <h3 className="name">
-            <span>{character.gender === "Male" ? "👨" : "👩"}</span>
-            <span> {character.name}</span>
-          </h3>
-          <div className="info">
-            <span
-              className={`status ${character.status === "Dead" && "red"}`}
-            ></span>
-            <span> {character.status}</span>
-            <span> - {character.species}</span>
-          </div>
-          <div className="location">
-            <p>Last known location:</p>
-            <p>{character.location.name}</p>
-          </div>
-          <div className="actions">
-            <button
-              className="btn btn--primary"
-              onClick={() => addToFav(character.id)}
-            >
-              Add to Favourit
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="character-episodes">
-        <div className="title">
-          <h2>List of Episodes</h2>
-          <button onClick={() => setSortBy(!sortBy)}>
-            {sortBy ? (
-              <ArrowDownCircleIcon className="icon" />
-            ) : (
-              <ArrowUpCircleIcon className="icon" />
-            )}
-          </button>
-        </div>
-        <ul>
-          {sortedEpisodes === null ? (
-            <p>Select a charecter first</p>
-          ) : (
-            sortedEpisodes.map((item, index) => (
-              <li key={item.id}>
-                <div>
-                  {String(index + 1).padStart(2, "0")} {item.episode} :
-                  <strong>{item.name}</strong>
-                </div>
-                <div className="badge badge--secondary">{item.air_date}</div>
-              </li>
-            ))
-          )}
-        </ul>
-      </div>
+      <CharacterDetails character={character} />
+      <CharacterEpisodes
+        setSortBy={setSortBy}
+        sortBy={sortBy}
+        sortedEpisodes={sortedEpisodes}
+      />
     </div>
   );
 }
 
 export default CharecterDetail;
+
+
+function CharacterDetails({ character }) {
+  return (
+    <div className="character-detail">
+      <img
+        src={character.image}
+        alt={character.name}
+        className="character-detail__img"
+      />
+      <div className="character-detail__info">
+        <h3 className="name">
+          <span>{character.gender === "Male" ? "👨" : "👩"}</span>
+          <span> {character.name}</span>
+        </h3>
+        <div className="info">
+          <span
+            className={`status ${character.status === "Dead" && "red"}`}
+          ></span>
+          <span> {character.status}</span>
+          <span> - {character.species}</span>
+        </div>
+        <div className="location">
+          <p>Last known location:</p>
+          <p>{character.location.name}</p>
+        </div>
+        <div className="actions">
+          <button
+            className="btn btn--primary"
+            onClick={() => addToFav(character.id)}
+          >
+            Add to Favourit
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CharacterEpisodes({ setSortBy, sortBy, sortedEpisodes }) {
+  return (
+    <div className="character-episodes">
+      <div className="title">
+        <h2>List of Episodes</h2>
+        <button onClick={() => setSortBy(!sortBy)}>
+          {sortBy ? (
+            <ArrowDownCircleIcon className="icon" />
+          ) : (
+            <ArrowUpCircleIcon className="icon" />
+          )}
+        </button>
+      </div>
+      <ul>
+        {sortedEpisodes === null ? (
+          <p>Select a charecter first</p>
+        ) : (
+          sortedEpisodes.map((item, index) => (
+            <li key={item.id}>
+              <div>
+                {String(index + 1).padStart(2, "0")} {item.episode} :
+                <strong>{item.name}</strong>
+              </div>
+              <div className="badge badge--secondary">{item.air_date}</div>
+            </li>
+          ))
+        )}
+      </ul>
+    </div>
+  );
+}
