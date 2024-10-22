@@ -15,7 +15,8 @@ function Navbar({ children }) {
 
 export default Navbar;
 
-// separate to local functions
+
+/// *** ///
 function Nav() {
   return <div className="navbar__logo">Logo😍</div>;
 }
@@ -48,7 +49,7 @@ export function Favourites({ fav, setFav}) {
         {fav.map((item) => (
           <Character item={item} key={item.id}>
             <button className="icon red" onClick={()=>onDeleteFav(item.id)}>
-              <TrashIcon />
+              <TrashIcon />       {/* Note 5.2. */}
             </button>
           </Character>
         ))}

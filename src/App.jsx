@@ -14,8 +14,8 @@ function App() {
   const [character, setCharacter] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [episodes, setEpisodes] = useState([]);
-  /// add characters to Favourites
-  const [fav, setFav] = useState([]);
+  /// add characters to Favourites, load initial data from localStorage if it is empty, it return empty array 
+  const [fav, setFav] = useState(JSON.parse(localStorage.getItem("favorites")) || []);
   /// collect id of characters
   const [favsId, setFavsId] = useState([]);
   const [characters, setCharacters] = useState([]);
@@ -77,9 +77,15 @@ function App() {
   function addToFav(id) {
     if (!fav.includes(id)) {
       setFavsId([...favsId, id]);
-      characters.map((item) => item.id === id && setFav([...fav, item]));
+      characters.map((item) => item.id === id && setFav([...fav, item]))
     }
   }
+
+  /// by changing the fav as a dependency, localStorage save
+  useEffect(()=>{
+    localStorage.setItem("favorites", JSON.stringify(fav))
+  }, [fav])
+
 
 
  //// *** jsx (render logic) *** ////
