@@ -28,7 +28,7 @@ function CharecterDetail({ character, episodes, addToFav }) {
 
   return (
     <div style={{ flex: 1 }}>
-      <CharacterDetails character={character} />
+      <CharacterDetails character={character} addToFav={addToFav} />
       <CharacterEpisodes
         setSortBy={setSortBy}
         sortBy={sortBy}
@@ -41,7 +41,7 @@ function CharecterDetail({ character, episodes, addToFav }) {
 export default CharecterDetail;
 
 
-function CharacterDetails({ character }) {
+function CharacterDetails({ character, addToFav }) {
   return (
     <div className="character-detail">
       <img

@@ -57,4 +57,7 @@ return cleanupFunction,
 )
 ** puting the dependencies (state) into [] runs the effect function after changing the state, and renders the useEffect.
 
-5. use component composition for navbar and use searchResult and Search as the children to prevent props drilling.
+5. Usage of children:
+5.1. component composition: Prevent from props drilling: when we separate a component to local (nested) functions, and the main component does not need props which are neccessary for one of the functions, so, use that function as a children inside the element of the parent component in the top component to pass that props to the children (function) directly. In this case we should write "export" before the function into the main component and import the function inside the top component. e.g. Navbar in App that has three child Search, SearchResult, Favourities.   
+ 
+5.2.When some part of a component has global usage in differnt components and other parts are specific for that coponent, we can put the specif part onto the top coponent as children of the component inside the element. by doing this we can use the main component in other positions.  e.g. Character using in CharaterList component and Navbar component. 

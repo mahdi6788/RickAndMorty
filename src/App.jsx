@@ -83,7 +83,7 @@ function App() {
   return (
     <div className="app">
       <Toaster />
-      {/* Note 5 */}
+      {/* Note 5.1 */}
       <Navbar>
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfResult={numOfResult} />
