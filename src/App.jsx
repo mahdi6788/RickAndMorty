@@ -7,12 +7,24 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 function App() {
-  const [query, setQuery] = useState("");  //** Note 1
+  //// **** Hooks: useStates **** ////
 
+  const [query, setQuery] = useState("");  //** Note 1
   /// to determine which cahracter is selected, via Id
   const [character, setCharacter] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [episodes, setEpisodes] = useState([]);
+  /// add characters to Favourites
+  const [fav, setFav] = useState([]);
+  /// collect id of characters
+  const [favsId, setFavsId] = useState([]);
+  const [characters, setCharacters] = useState([]);
+  /// To display message when waiting to fetch data from API
+  const [isLoading, setIsLoading] = useState(false);
+
+  
+  //// **** nested (local) functions **** ////
+
   async function handlerCharacter(id) {
     try {
       setSelectedId(id);
@@ -38,13 +50,6 @@ function App() {
     }
   }
 
-  const [characters, setCharacters] = useState([]);
-
-  /// To display message when waiting to fetch data from API
-  const [isLoading, setIsLoading] = useState(false);
-
-  ///use axios instead of using fetch
-
   useEffect(() => {
     async function fetchData() {
       /// not to show result if the input is less than 3 characters.
@@ -69,16 +74,15 @@ function App() {
 
   const numOfResult = characters.length;
 
-  /// add characters to Favourites
-  const [fav, setFav] = useState([]);
-  /// collect id of characters
-  const [favsId, setFavsId] = useState([]);
   function addToFav(id) {
     if (!fav.includes(id)) {
       setFavsId([...favsId, id]);
       characters.map((item) => item.id === id && setFav([...fav, item]));
     }
   }
+
+
+ //// *** jsx (render logic) *** ////
 
   return (
     <div className="app">
