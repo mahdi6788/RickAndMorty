@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import useCharacters from "./hooks/useCharacters";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   //// **** Hooks: useStates **** ////
@@ -15,8 +16,8 @@ function App() {
   const [character, setCharacter] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [episodes, setEpisodes] = useState([]);
-  /// add characters to Favourites, load initial data from localStorage if it is empty, it return empty array 
-  const [fav, setFav] = useState(JSON.parse(localStorage.getItem("favorites")) || []);
+  // /// add characters to Favourites, load initial data from localStorage if it is empty, it return empty array 
+  // const [fav, setFav] = useState(JSON.parse(localStorage.getItem("favorites")) || []);
   /// collect id of characters
   const [favsId, setFavsId] = useState([]);
   /// custom hook
@@ -61,10 +62,8 @@ function App() {
     }
   }
 
-  /// by changing the fav as a dependency, localStorage save
-  useEffect(()=>{
-    localStorage.setItem("favorites", JSON.stringify(fav))
-  }, [fav])
+
+  const [fav, setFav] = useLocalStorage("favourites", [])
 
 
 
