@@ -55,15 +55,15 @@ function App() {
 
   const numOfResult = characters.length;
 
+  const [fav, setFav] = useLocalStorage("favourites", [])
+
   function addToFav(id) {
-    if (!fav.includes(id)) {
+    if (!favsId.includes(id)) {
       setFavsId([...favsId, id]);
       characters.map((item) => item.id === id && setFav([...fav, item]))
     }
   }
 
-
-  const [fav, setFav] = useLocalStorage("favourites", [])
 
 
 
