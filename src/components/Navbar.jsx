@@ -19,7 +19,7 @@ export default Navbar;
 function Nav() {
   return (
     <img
-      src="data/logo.jpeg"
+      src="/logo.jpeg"
       alt="logo"
       style={{ width: "50px", borderRadius: "2rem" }}
     />
