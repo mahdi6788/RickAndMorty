@@ -22,11 +22,7 @@ function App() {
   const [favsId, setFavsId] = useState([]);
   /// custom hook
   const {characters, isLoading} = useCharacters(query)
-
   
-
-  
-  //// **** nested (local) functions **** ////
 
   async function handlerCharacter(id) {
     try {
@@ -64,10 +60,6 @@ function App() {
     }
   }
 
-
-
-
- //// *** jsx (render logic) *** ////
 
   return (
     <div className="app">

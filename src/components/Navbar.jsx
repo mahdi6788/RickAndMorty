@@ -6,19 +6,24 @@ import { TrashIcon } from "@heroicons/react/16/solid";
 
 function Navbar({ children }) {
   return (
-    <nav className="navbar">
+    <navbar className="navbar">
       <Nav />
       {children}
-    </nav>
+    </navbar>
   );
 }
 
 export default Navbar;
 
-
 /// *** ///
 function Nav() {
-  return <div className="navbar__logo">Logo😍</div>;
+  return (
+    <img
+      src="../../data/logo.jpeg"
+      alt="logo"
+      style={{ width: "50px", borderRadius: "2rem" }}
+    />
+  );
 }
 
 export function Search({ query, setQuery }) {
@@ -37,19 +42,19 @@ export function SearchResult({ numOfResult }) {
   return <div className="navbar__result">found {numOfResult} results</div>;
 }
 
-export function Favourites({ fav, setFav}) {
+export function Favourites({ fav, setFav }) {
   const [isOpen, setIsOpen] = useState(false);
   const onDeleteFav = (id) => {
-    const filtered = fav.filter(item => item.id !== id)
-    setFav(filtered)
-  }
+    const filtered = fav.filter((item) => item.id !== id);
+    setFav(filtered);
+  };
   return (
     <>
       <Modal onOpen={setIsOpen} open={isOpen} title={"Favorites List"}>
         {fav.map((item) => (
           <Character item={item} key={item.id}>
-            <button className="icon red" onClick={()=>onDeleteFav(item.id)}>
-              <TrashIcon />       {/* Note 5.2. */}
+            <button className="icon red" onClick={() => onDeleteFav(item.id)}>
+              <TrashIcon /> {/* Note 5.2. */}
             </button>
           </Character>
         ))}
