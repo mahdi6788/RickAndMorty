@@ -39,6 +39,7 @@ button {
   color: var(--slate-100);
   background-color: var(--slate-500);
   font-size: 1.1rem;
+  width: 90%;
 }
 
 .text-field::placeholder {
