@@ -54,6 +54,10 @@ function App() {
     }
   }
 
+  useEffect(()=>{
+    if (query.length === 0) setCharacter(null)
+    // console.log(query.length)
+  },[query])
 
 
   return (
