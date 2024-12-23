@@ -57,7 +57,7 @@ function App() {
 
 
   return (
-    <div className="app">
+    <div>
       <Toaster />
       {/* Note 5.1 */}
       <Navbar>
