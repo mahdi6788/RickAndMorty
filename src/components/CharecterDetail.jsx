@@ -27,7 +27,7 @@ function CharecterDetail({ character, episodes, addToFav }) {
   }
 
   return (
-    <div style={{ flex: 1 }}>
+    <div className="charDetails">
       <CharacterDetails character={character} addToFav={addToFav} />
       <CharacterEpisodes
         setSortBy={setSortBy}
