@@ -140,7 +140,7 @@
 .character-detail__img {
   width: 100%;
   height: auto;
-  max-height: 15rem;
+  /* max-height: 15rem; */
   object-fit: cover;
   object-position: center;
 }
