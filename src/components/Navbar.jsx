@@ -38,7 +38,7 @@ export function Search({ query, setQuery }) {
 }
 
 export function SearchResult({ numOfResult }) {
-  return <div className="navbar__result">found {numOfResult} results</div>;
+  return <div className="navbar__result"> {numOfResult} results</div>;
 }
 
 export function Favourites({ fav, setFav }) {
