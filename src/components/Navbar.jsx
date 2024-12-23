@@ -6,10 +6,10 @@ import { TrashIcon } from "@heroicons/react/16/solid";
 
 function Navbar({ children }) {
   return (
-    <navbar className="navbar">
+    <nav className="navbar">
       <Nav />
       {children}
-    </navbar>
+    </nav>
   );
 }
 
