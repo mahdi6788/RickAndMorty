@@ -7,7 +7,6 @@ import { TrashIcon } from "@heroicons/react/16/solid";
 function Navbar({ children }) {
   return (
     <nav className="navbar">
-      <Nav />
       {children}
     </nav>
   );
@@ -16,12 +15,12 @@ function Navbar({ children }) {
 export default Navbar;
 
 /// *** ///
-function Nav() {
+export function Logo() {
   return (
     <img
       src="/logo.jpeg"
       alt="logo"
-      style={{ width: "50px", borderRadius: "2rem" }}
+      style={{ width: "50px", borderRadius: "2rem", marginRight:"0.5rem" }}
     />
   );
 }
